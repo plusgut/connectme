@@ -13,6 +13,7 @@ class App extends React.Component<props, state> {
     this.state = {
       apis: [
         new Api(),
+        new Api(),
       ],
     };
   }
