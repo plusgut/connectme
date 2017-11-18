@@ -4,6 +4,5 @@
 
 g {
   transition-property: all;
-  transition-property: transform;
-  transition-duration: 2s;
+  transition-duration: 1.5s;
 }
