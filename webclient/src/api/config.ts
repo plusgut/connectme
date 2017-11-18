@@ -1,3 +1,3 @@
 export default {
-  endpoint: 'http://localhost:3000/api/',
+  endpoint: 'http://localhost:3000/api/ConnectMeTeam/',
 };

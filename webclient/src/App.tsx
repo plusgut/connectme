@@ -29,18 +29,24 @@ class App extends React.Component<props, state> {
 
   private setOpenDoor() {
     api.setOpenDoor();
+    this.setState({
+      openDoor: true,
+    });
   }
 
   private setCloseDoor() {
     api.setCloseDoor();
+    this.setState({
+      openDoor: false,
+    });
   }
 
   render() {
     return (
       <div className="App">
         <Car 
-          openDoor={true}
-          openTrunk={false}
+          openDoor={this.state.openDoor}
+          openTrunk={this.state.openTrunk}
           setOpenDoor={() => this.setOpenDoor()}
           setCloseDoor={() => this.setCloseDoor()}
         />
