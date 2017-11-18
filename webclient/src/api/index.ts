@@ -3,8 +3,8 @@ import config from './config';
 class Api {
   private request<responseType>(url: string, init: RequestInit): Promise<responseType> {
     return fetch(url, init).then((response) => {
-      return response.json()
-    });
+      return response.json();
+    }).catch(() => {throw new Error('making request failed');});
   }
   
   public getDoor() {

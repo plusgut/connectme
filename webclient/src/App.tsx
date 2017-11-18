@@ -22,7 +22,7 @@ class App extends React.Component<props, state> {
   private getDoorState() {
     api.getDoor().then((openDoor: boolean) => {
       this.setState({
-        openDoor: openDoor
+        openDoor,
       });
     });
   }
