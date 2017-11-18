@@ -1,19 +1,49 @@
 import * as React from 'react';
-import './App.css';
+import Car from './Car';
+import api from './api';
 
-const logo = require('./logo.svg');
+interface props {};
+interface state {
+  openDoor: boolean;
+  openTrunk: boolean;
+}
 
-class App extends React.Component {
+class App extends React.Component<props, state> {
+  constructor(props: props) {
+    super(props);
+    this.state = {
+      openDoor: false,
+      openTrunk: false,
+    };
+
+    this.getDoorState();
+  }
+
+  private getDoorState() {
+    api.getDoor().then((openDoor: boolean) => {
+      this.setState({
+        openDoor: openDoor
+      });
+    });
+  }
+
+  private setOpenDoor() {
+    api.setOpenDoor();
+  }
+
+  private setCloseDoor() {
+    api.setCloseDoor();
+  }
+
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.tsx</code> and save to reload.
-        </p>
+        <Car 
+          openDoor={true}
+          openTrunk={false}
+          setOpenDoor={() => this.setOpenDoor()}
+          setCloseDoor={() => this.setCloseDoor()}
+        />
       </div>
     );
   }
