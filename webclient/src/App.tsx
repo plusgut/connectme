@@ -23,6 +23,7 @@ class App extends React.Component<props, state> {
     api.getDoor().then((openDoor: boolean) => {
       this.setState({
         openDoor,
+        // openDoor: true,
       });
     });
   }
