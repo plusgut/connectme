@@ -2,7 +2,7 @@ import * as React from 'react';
 import Car from './Car';
 import api from './api';
 
-interface props {};
+interface props {}
 interface state {
   openDoor: boolean;
   openTrunk: boolean;
