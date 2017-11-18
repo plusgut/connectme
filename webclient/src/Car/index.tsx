@@ -54,7 +54,7 @@ class Car extends React.Component<props, state> {
   render() {
     return (
       <span>
-        <svg x="0px" y="0px" viewBox="0 0 841.9 595.3">
+        <svg x="0px" y="0px" viewBox="0 0 841.9 296.9">
           <Body />
           <Door
             openDoor={this.state.openDoor}
