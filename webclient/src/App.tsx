@@ -2,6 +2,8 @@ import * as React from 'react';
 import Car from './Car';
 import api from './api';
 
+const POLL_TIME = 800;
+
 interface props {}
 interface state {
   openDoor: boolean;
@@ -25,6 +27,7 @@ class App extends React.Component<props, state> {
         openDoor,
         // openDoor: true,
       });
+      setTimeout(this.getDoorState.bind(this), POLL_TIME);
     });
   }
 
