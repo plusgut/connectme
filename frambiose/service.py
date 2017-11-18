@@ -1,5 +1,30 @@
 from socketclusterclient import Socketcluster
+import pifacedigitalio
 import logging
+
+
+class DoorLocker:
+
+    def __init__(self):
+        self.pfd = pifacedigitalio.PiFaceDigital()
+        self.door_closed = True
+
+    def open_door(self):
+        self.pfd.leds[1].turn_on()
+        self.door_closed = False
+
+    def close_door(self):
+        self.pfd.leds[1].turn_off()
+        self.door_closed = True
+
+    def door_status(self):
+        if self.door_closed:
+            return "Door close"
+        elif not self.door_closed:
+            return "Door open"
+        else:
+            return "Error"
+
 
 
 class DoorService:
