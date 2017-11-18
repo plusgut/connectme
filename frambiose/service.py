@@ -1,6 +1,7 @@
 from socketclusterclient import Socketcluster
 import pifacedigitalio
 import logging
+import json
 
 
 class DoorLocker:
@@ -27,9 +28,12 @@ class DoorLocker:
 
 
 
+
 class DoorService:
 
     def __init__(self):
+        self.door = DoorLocker()
+        self.socket = None
         pass
 
     def onconnect(self, socket):
@@ -37,6 +41,8 @@ class DoorService:
 
         socket.subscribe('ConnectMeTeam')
         socket.onchannel('ConnectMeTeam', self.channelmessage)
+        self.socket = socket
+        logging.debug("Bound to network")
         logging.info(socket.getsubscribedchannels())
 
     def ondisconnect(self, socket):
@@ -51,9 +57,26 @@ class DoorService:
     def onAuthentication(self, socket, isauthenticated):
         logging.info("Authenticated is " + str(isauthenticated))
 
-    def channelmessage(self, key, object):
-        logging.info('There is something')
-        #logging.info('Channelmessage ' + str(key) + " : " + str(object))
+    def sendStatusUpdate(self):
+        val = {}
+        val["DoorStatus"] = self.door.door_status()
+        self.socket.publish('ConnectMeTeam', str(val))
+
+    def channelmessage(self, key, payload):
+        logging.debug(str(payload))
+        if key == "ConnectMeTeam":
+            command = payload
+            if 'event' in command:
+                if command['event'] == "OpenDoor":
+                    logging.debug("Open Door")
+                    self.door.open_door()
+                elif command['event'] == "CloseDoor":
+                    logging.debug("Close Door")
+                    self.door.close_door()
+                else:
+                    logging.error("Unknown command")
+
+                self.sendStatusUpdate()
 
 
 if __name__ == "__main__":
