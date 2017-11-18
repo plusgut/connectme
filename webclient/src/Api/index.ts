@@ -1,6 +1,6 @@
 import config from './config';
 
-class Api {
+export default class Api {
   private request<responseType>(url: string, init: RequestInit): Promise<responseType> {
     return fetch(url, init).then((response) => {
       return response.json();
@@ -29,5 +29,3 @@ class Api {
     
   }
 }
-
-export default new Api();

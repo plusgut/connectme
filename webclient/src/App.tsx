@@ -1,59 +1,28 @@
 import * as React from 'react';
 import Car from './Car';
-import api from './api';
-
-const POLL_TIME = 800;
+import Api from './Api';
 
 interface props {}
 interface state {
-  openDoor: boolean;
-  openTrunk: boolean;
+  apis: Api[];
 }
 
 class App extends React.Component<props, state> {
   constructor(props: props) {
     super(props);
     this.state = {
-      openDoor: false,
-      openTrunk: false,
+      apis: [
+        new Api(),
+      ],
     };
-
-    this.getDoorState();
-  }
-
-  private getDoorState() {
-    api.getDoor().then((openDoor: boolean) => {
-      this.setState({
-        openDoor,
-        // openDoor: true,
-      });
-      setTimeout(this.getDoorState.bind(this), POLL_TIME);
-    });
-  }
-
-  private setOpenDoor() {
-    api.setOpenDoor();
-    this.setState({
-      openDoor: true,
-    });
-  }
-
-  private setCloseDoor() {
-    api.setCloseDoor();
-    this.setState({
-      openDoor: false,
-    });
   }
 
   render() {
     return (
       <div className="App">
-        <Car 
-          openDoor={this.state.openDoor}
-          openTrunk={this.state.openTrunk}
-          setOpenDoor={() => this.setOpenDoor()}
-          setCloseDoor={() => this.setCloseDoor()}
-        />
+        {this.state.apis.map((api, index) =>
+          <Car key={index} api={api} />,
+        )}
       </div>
     );
   }
