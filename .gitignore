@@ -171,4 +171,11 @@ venv.bak/
     Blog
     About
 
-
+.classpath
+.project
+.settings
+.springBeans
+.gradle
+build
+target
+bin
