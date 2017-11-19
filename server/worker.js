@@ -3,6 +3,7 @@ var serveStatic = require('serve-static');
 var path = require('path');
 var morgan = require('morgan');
 var healthChecker = require('sc-framework-health-check');
+var db = require('./mongoDB');
 
 module.exports.run = function (worker) {
     console.log('   >> Worker PID:', process.pid);
@@ -54,6 +55,7 @@ module.exports.run = function (worker) {
 
 
 
+
     function handleHttpRequest(req, res){
         var namespace = req.params.namespace;
         var eventReceived = req.params.event;
@@ -62,6 +64,7 @@ module.exports.run = function (worker) {
         scServer.exchange.publish(namespace, {
                             event: eventReceived
                         });
+        db.saveLogs(namespace, eventReceived);
         res.send('Hello ConnectMe!');
     }
 };
