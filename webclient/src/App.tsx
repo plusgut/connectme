@@ -1,6 +1,7 @@
 import * as React from 'react';
 import Car from './Car';
 import Api from './Api';
+import './App.css';
 
 interface props {}
 interface state {
@@ -13,7 +14,8 @@ class App extends React.Component<props, state> {
     this.state = {
       apis: [
         new Api(),
-        new Api(),
+        // new Api(),
+        // new Api(),
       ],
     };
   }

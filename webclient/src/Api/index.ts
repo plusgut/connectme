@@ -13,8 +13,8 @@ export default class Api {
     //   method: 'GET',
     // });
 
-    return new Promise<boolean>(() => {
-
+    return new Promise<boolean>((resolve) => {
+      resolve();
     });
   }
 
